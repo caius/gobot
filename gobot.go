@@ -10,6 +10,25 @@ import (
   "io/ioutil"
 )
 
+// Stabs what he is comanded to. Unless it's himself.
+// `stab blah` => `* gobot stabs blah`
+func StabHandler(con *irc.Connection, e irc.Event, replyName string) {
+  msg := e.Message
+
+  stab_regexp := regexp.MustCompile("stab (.+)")
+
+  if !stab_regexp.MatchString(msg) {
+    return
+  }
+
+  receiver := stab_regexp.FindStringSubmatch(msg)[1]
+  // If they try to stab us, stab them
+  if regexp.MustCompile("rugbot").MatchString(receiver) {
+    receiver = e.Nick
+  }
+
+  con.Privmsgf(replyName, "/me stabs %s", receiver)
+}
 
 // Listens to channel conversation and inserts title of any link posted, following redirects
 // `And then I went to www.caius.name` => `gobot: Caius Durling &raquo; Profile`
@@ -78,6 +97,7 @@ func main() {
     fmt.Printf("[%6s] %6s: %s\n", roomName, e.Nick, e.Message)
 
     // "Plugins"
+    StabHandler(con, *e, roomName)
     URLHandler(con, *e, roomName)
   })
 
