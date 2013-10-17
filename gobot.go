@@ -8,7 +8,44 @@ import (
   "regexp"
   "net/http"
   "io/ioutil"
+	"crypto/rand"
+	"math/big"
 )
+
+func Pong(con *irc.Connection, e irc.Event, replyName string) {
+	if regexp.MustCompile("^(?:\\.|!?\\.?ping)$").MatchString(e.Message) {
+		con.Privmsg(replyName, "pong!")
+	}
+}
+
+func Stats(con *irc.Connection, e irc.Event, replyName string) {
+	if regexp.MustCompile("^stats?$").MatchString(e.Message) {
+		con.Privmsg(replyName, "http://dev.hentan.caius.name/irc/nwrug.html")
+	}
+}
+
+func Dance(con *irc.Connection, e irc.Event, replyName string) {
+	if !regexp.MustCompile("^dance$").MatchString(e.Message) {
+		return
+	}
+
+	i, err := rand.Int(rand.Reader, big.NewInt(2))
+	if err != nil {
+		// TODO: handle error
+		return // Oops!
+	}
+
+	switch i.Int64() {
+	case 0:
+		con.Privmsg(replyName, "EVERYBODY DANCE NOW!")// msg channel, "EVERYBODY DANCE NOW!"
+		// TODO: ACTION
+		con.Privmsg(replyName, "ACTION does the funky chicken")
+	case 1:
+		con.Privmsg(replyName, "http://no.gd/caiusboogie.gif")
+	case 2:
+		con.Privmsg(replyName, "http://i.imgur.com/rDDjz.gif")
+	}
+}
 
 // Stabs what he is comanded to. Unless it's himself.
 // `stab blah` => `* gobot stabs blah`
@@ -97,8 +134,11 @@ func main() {
     fmt.Printf("[%6s] %6s: %s\n", roomName, e.Nick, e.Message)
 
     // "Plugins"
-    StabHandler(con, *e, roomName)
-    URLHandler(con, *e, roomName)
+    go StabHandler(con, *e, roomName)
+    go URLHandler(con, *e, roomName)
+    go Pong(con, *e, roomName)
+    go Stats(con, *e, roomName)
+    go Dance(con, *e, roomName)
   })
 
   con.Loop()
