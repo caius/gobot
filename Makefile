@@ -48,6 +48,6 @@ submodules:
 # Cleans out build products
 #
 clean:
-	find {bin,pkg} -mindepth 1 -delete
+	find {bin,pkg} -mindepth 1 -not -name '.gitkeep' -delete
 
 .PHONY: clean submodules fmt run install test
