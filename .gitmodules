@@ -1,0 +1,3 @@
+[submodule "src/github.com/thoj/go-ircevent"]
+	path = src/github.com/thoj/go-ircevent
+	url = git://github.com/thoj/go-ircevent
