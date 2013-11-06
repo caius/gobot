@@ -12,6 +12,27 @@ import (
 	"strings"
 )
 
+var GitCommit string
+var BuiltBy string
+
+func Version(con *irc.Connection, e irc.Event, replyName string) {
+  if regexp.MustCompile("^version").MatchString(e.Message) {
+    reply := "My current version is"
+
+    if GitCommit != "" {
+       reply = fmt.Sprintf("%s %s", reply, GitCommit)
+    } else {
+      reply = fmt.Sprintf("%s unknown", reply)
+    }
+
+    if BuiltBy != "" {
+      reply = fmt.Sprintf("%s and I was built by %s", reply, BuiltBy)
+    }
+
+    con.Privmsgf(replyName, reply)
+  }
+}
+
 func Pong(con *irc.Connection, e irc.Event, replyName string) {
 	if regexp.MustCompile("^(?:\\.|!?\\.?ping)$").MatchString(e.Message) {
 		con.Privmsg(replyName, "pong!")
@@ -114,7 +135,7 @@ func URLHandler(con *irc.Connection, e irc.Event, replyName string) {
 }
 
 func main() {
-	fmt.Printf("") // FU GO
+	fmt.Printf("Version: %s\nBuilt by: %s\n", GitCommit, BuiltBy) // FU GO
 
 	roomName := "#caius"
 	botName := "gobot"
@@ -139,6 +160,7 @@ func main() {
 		go Pong(con, *e, roomName)
 		go Stats(con, *e, roomName)
 		go Dance(con, *e, roomName)
+		go Version(con, *e, roomName)
 	})
 
 	con.Loop()

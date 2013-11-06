@@ -6,7 +6,7 @@ GIT_STATUS = $(shell test -n "`git status --porcelain`" && echo "+CHANGES")
 
 COMPONENTS = gobot
 
-BUILD_OPTIONS = -ldflags "-X gobot/config.GitCommit $(GIT_COMMIT)$(GIT_STATUS) -X gobot/config.BuiltBy $(shell whoami) -w"
+BUILD_OPTIONS = -ldflags "-X main.GitCommit $(GIT_COMMIT)$(GIT_STATUS) -X main.BuiltBy $(shell whoami) -w"
 
 #
 # Build Targets, for development
