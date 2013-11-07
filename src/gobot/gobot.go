@@ -52,7 +52,7 @@ var Plugins = map[string]func(con *irc.Connection, e irc.Event, replyName string
 	},
 
 	"dance": func(con *irc.Connection, e irc.Event, replyName string) {
-		i, err := rand.Int(rand.Reader, big.NewInt(2))
+		i, err := rand.Int(rand.Reader, big.NewInt(3))
 		if err != nil {
 			i = big.NewInt(1)
 		}
