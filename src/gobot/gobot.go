@@ -15,6 +15,15 @@ import (
 var GitCommit string
 var BuiltBy string
 
+func Sample(arr []string) (string, error) {
+  max := int64(len(arr))
+  i, err := rand.Int(rand.Reader, big.NewInt(max))
+  if err != nil {
+    return "", err
+  }
+  return arr[i.Int64()], nil
+}
+
 var Plugins = map[string]func(con *irc.Connection, e irc.Event, replyName string){
 
 	"version": func(con *irc.Connection, e irc.Event, replyName string) {
