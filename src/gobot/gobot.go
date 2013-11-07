@@ -26,6 +26,25 @@ func Sample(arr []string) (string, error) {
 
 var Plugins = map[string]func(con *irc.Connection, e irc.Event, replyName string){
 
+  "/help|commands/": func(con *irc.Connection, e irc.Event, replyName string) {
+    con.Privmsg(replyName, "roll, nextmeet, artme <string>, stab <nick>, seen <nick>, ram, uptime, 37status, boobs, trollface, dywj, dance, mustachify, stats, last, ping")
+  },
+
+  "meme": func(con *irc.Connection, e irc.Event, replyName string) {
+    // There are no decent meme web services, nor gems wrapping the shitty ones.
+    // -- Caius, 20th Aug 2011
+    con.Privmsg(replyName, "Y U NO FIX MEME?!")
+  },
+
+  "/troll(face)?/": func(con *irc.Connection, e irc.Event, replyName string) {
+    response, err := Sample([]string{"http://no.gd/troll.png", "http://no.gd/trolldance.gif", "http://caius.name/images/phone_troll.jpg"})
+    if err != nil {
+      return
+    }
+
+    con.Privmsg(replyName, response)
+  },
+
 	"version": func(con *irc.Connection, e irc.Event, replyName string) {
 		reply := "My current version is"
 
