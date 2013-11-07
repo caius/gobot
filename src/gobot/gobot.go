@@ -45,6 +45,62 @@ var Plugins = map[string]func(con *irc.Connection, e irc.Event, replyName string
     con.Privmsg(replyName, response)
   },
 
+  "boner": func(con *irc.Connection, e irc.Event, replyName string) {
+    response, err := Sample([]string{"http://files.myopera.com/coxy/albums/106123/trex-boner.jpg", "http://no.gd/badger.gif"})
+    if err != nil {
+      return
+    }
+
+    con.Privmsg(replyName, response)
+  },
+
+  "badger": func(con *irc.Connection, e irc.Event, replyName string) {
+    con.Privmsg(replyName, "http://no.gd/badger2.gif")
+  },
+
+  "dywj": func(con *irc.Connection, e irc.Event, replyName string) {
+    con.Privmsg(replyName, "DAMN YOU WILL JESSOP!!!")
+  },
+
+  // derp, herp
+  "/\b[dh]erp\b/": func(con *irc.Connection, e irc.Event, replyName string) {
+    con.Privmsg(replyName, "http://caius.name/images/qs/herped-a-derp.png")
+  },
+
+  "/F{2,}U{2,}/": func(con *irc.Connection, e irc.Event, replyName string) {
+    var response string
+
+    if strings.Contains(strings.ToLower(e.Nick), "tomb") {
+      response = "http://no.gd/p/calm-20111107-115310.jpg"
+    } else {
+      response = fmt.Sprintf("Calm down %s!", e.Nick)
+    }
+
+    con.Privmsg(replyName, response)
+  },
+
+  "nextmeat": func(con *irc.Connection, e irc.Event, replyName string) {
+    con.Privmsg(replyName, "BACNOM")
+  },
+
+  "/where is (wlll|will)/": func(con *irc.Connection, e irc.Event, replyName string) {
+    response, err := Sample([]string{"North Tea Power", "home"})
+    if err != nil {
+      return
+    }
+
+    con.Privmsg(replyName, response)
+  },
+
+  "/^b(oo|ew)bs$/": func(con *irc.Connection, e irc.Event, replyName string) {
+    response, err := Sample([]string{"(.)(.)", "http://no.gd/boobs.gif"})
+    if err != nil {
+      return
+    }
+
+    con.Privmsg(replyName, response)
+  },
+
 	"version": func(con *irc.Connection, e irc.Event, replyName string) {
 		reply := "My current version is"
 
@@ -150,6 +206,25 @@ var Plugins = map[string]func(con *irc.Connection, e irc.Event, replyName string
 		fmt.Printf("title: %s\n", title)
 		con.Privmsg(replyName, title)
 	},
+
+  // TODO: last
+  // TODO: roll
+  // TODO: ACTION pokes .+
+  // TODO: 37status
+  // TODO: hubstatus
+  // TODO: nextmeet
+  // TODO: ACTION staabs
+  // TODO: artme
+  // TODO: tasche http
+  // TODO: tasche artme
+  // TODO: seen
+  // TODO: ram
+  // TODO: uptime
+  // TODO: last poop
+  // TODO: twitter status
+  // TODO: twitter user
+  // TODO: commit me
+
 }
 
 func main() {
