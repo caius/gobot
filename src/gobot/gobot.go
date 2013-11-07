@@ -158,18 +158,31 @@ func main() {
 		// TODO: have irc.Event contain the room name for the PRIVMSG
 		fmt.Printf("[%6s] %6s: %s\n", roomName, e.Nick, e.Message)
 
-		// "Plugins"
-/*
-    go StabHandler(con, *e, roomName)
-    go URLHandler(con, *e, roomName)
-    go Pong(con, *e, roomName)
-    go Stats(con, *e, roomName)
-    go Dance(con, *e, roomName)
-    go Version(con, *e, roomName)
-//*/
+		// Plugins!
+    lowerMessage := strings.ToLower(e.Message)
 
     for matchString := range Plugins {
       // TODO: check matchString against e.Message
+      if strings.HasPrefix(matchString, "/") && strings.HasPrefix(matchString, "/") {
+        // Yer a regexp Harry
+        regexString := strings.TrimPrefix(matchString, "/")
+        regexString = strings.TrimSuffix(regexString, "/")
+
+        fmt.Printf("regexString: %s\n", regexString);
+
+        // Get on yer bike if we don't match
+        if !regexp.MustCompile(regexString).MatchString(e.Message) {
+          fmt.Printf("Skipping %s plugin - no regexp match\n", matchString)
+          continue
+        }
+      } else {
+        // Just a plain ole string
+        if !strings.Contains(lowerMessage, matchString) {
+          fmt.Printf("Skipping %s plugin - no string match\n", matchString)
+          continue
+        }
+      }
+
       f := Plugins[matchString]
       go f(con, *e, roomName)
     }
