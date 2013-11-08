@@ -16,90 +16,90 @@ var GitCommit string
 var BuiltBy string
 
 func Sample(arr []string) (string, error) {
-  max := int64(len(arr))
-  i, err := rand.Int(rand.Reader, big.NewInt(max))
-  if err != nil {
-    return "", err
-  }
-  return arr[i.Int64()], nil
+	max := int64(len(arr))
+	i, err := rand.Int(rand.Reader, big.NewInt(max))
+	if err != nil {
+		return "", err
+	}
+	return arr[i.Int64()], nil
 }
 
 var Plugins = map[string]func(con *irc.Connection, e irc.Event, replyName string){
 
-  "/help|commands/": func(con *irc.Connection, e irc.Event, replyName string) {
-    con.Privmsg(replyName, "roll, nextmeet, artme <string>, stab <nick>, seen <nick>, ram, uptime, 37status, boobs, trollface, dywj, dance, mustachify, stats, last, ping")
-  },
+	"/help|commands/": func(con *irc.Connection, e irc.Event, replyName string) {
+		con.Privmsg(replyName, "roll, nextmeet, artme <string>, stab <nick>, seen <nick>, ram, uptime, 37status, boobs, trollface, dywj, dance, mustachify, stats, last, ping")
+	},
 
-  "meme": func(con *irc.Connection, e irc.Event, replyName string) {
-    // There are no decent meme web services, nor gems wrapping the shitty ones.
-    // -- Caius, 20th Aug 2011
-    con.Privmsg(replyName, "Y U NO FIX MEME?!")
-  },
+	"meme": func(con *irc.Connection, e irc.Event, replyName string) {
+		// There are no decent meme web services, nor gems wrapping the shitty ones.
+		// -- Caius, 20th Aug 2011
+		con.Privmsg(replyName, "Y U NO FIX MEME?!")
+	},
 
-  "/troll(face)?/": func(con *irc.Connection, e irc.Event, replyName string) {
-    response, err := Sample([]string{"http://no.gd/troll.png", "http://no.gd/trolldance.gif", "http://caius.name/images/phone_troll.jpg"})
-    if err != nil {
-      return
-    }
+	"/troll(face)?/": func(con *irc.Connection, e irc.Event, replyName string) {
+		response, err := Sample([]string{"http://no.gd/troll.png", "http://no.gd/trolldance.gif", "http://caius.name/images/phone_troll.jpg"})
+		if err != nil {
+			return
+		}
 
-    con.Privmsg(replyName, response)
-  },
+		con.Privmsg(replyName, response)
+	},
 
-  "boner": func(con *irc.Connection, e irc.Event, replyName string) {
-    response, err := Sample([]string{"http://files.myopera.com/coxy/albums/106123/trex-boner.jpg", "http://no.gd/badger.gif"})
-    if err != nil {
-      return
-    }
+	"boner": func(con *irc.Connection, e irc.Event, replyName string) {
+		response, err := Sample([]string{"http://files.myopera.com/coxy/albums/106123/trex-boner.jpg", "http://no.gd/badger.gif"})
+		if err != nil {
+			return
+		}
 
-    con.Privmsg(replyName, response)
-  },
+		con.Privmsg(replyName, response)
+	},
 
-  "badger": func(con *irc.Connection, e irc.Event, replyName string) {
-    con.Privmsg(replyName, "http://no.gd/badger2.gif")
-  },
+	"badger": func(con *irc.Connection, e irc.Event, replyName string) {
+		con.Privmsg(replyName, "http://no.gd/badger2.gif")
+	},
 
-  "dywj": func(con *irc.Connection, e irc.Event, replyName string) {
-    con.Privmsg(replyName, "DAMN YOU WILL JESSOP!!!")
-  },
+	"dywj": func(con *irc.Connection, e irc.Event, replyName string) {
+		con.Privmsg(replyName, "DAMN YOU WILL JESSOP!!!")
+	},
 
-  // derp, herp
-  "/\b[dh]erp\b/": func(con *irc.Connection, e irc.Event, replyName string) {
-    con.Privmsg(replyName, "http://caius.name/images/qs/herped-a-derp.png")
-  },
+	// derp, herp
+	"/\b[dh]erp\b/": func(con *irc.Connection, e irc.Event, replyName string) {
+		con.Privmsg(replyName, "http://caius.name/images/qs/herped-a-derp.png")
+	},
 
-  "/F{2,}U{2,}/": func(con *irc.Connection, e irc.Event, replyName string) {
-    var response string
+	"/F{2,}U{2,}/": func(con *irc.Connection, e irc.Event, replyName string) {
+		var response string
 
-    if strings.Contains(strings.ToLower(e.Nick), "tomb") {
-      response = "http://no.gd/p/calm-20111107-115310.jpg"
-    } else {
-      response = fmt.Sprintf("Calm down %s!", e.Nick)
-    }
+		if strings.Contains(strings.ToLower(e.Nick), "tomb") {
+			response = "http://no.gd/p/calm-20111107-115310.jpg"
+		} else {
+			response = fmt.Sprintf("Calm down %s!", e.Nick)
+		}
 
-    con.Privmsg(replyName, response)
-  },
+		con.Privmsg(replyName, response)
+	},
 
-  "nextmeat": func(con *irc.Connection, e irc.Event, replyName string) {
-    con.Privmsg(replyName, "BACNOM")
-  },
+	"nextmeat": func(con *irc.Connection, e irc.Event, replyName string) {
+		con.Privmsg(replyName, "BACNOM")
+	},
 
-  "/where is (wlll|will)/": func(con *irc.Connection, e irc.Event, replyName string) {
-    response, err := Sample([]string{"North Tea Power", "home"})
-    if err != nil {
-      return
-    }
+	"/where is (wlll|will)/": func(con *irc.Connection, e irc.Event, replyName string) {
+		response, err := Sample([]string{"North Tea Power", "home"})
+		if err != nil {
+			return
+		}
 
-    con.Privmsg(replyName, response)
-  },
+		con.Privmsg(replyName, response)
+	},
 
-  "/^b(oo|ew)bs$/": func(con *irc.Connection, e irc.Event, replyName string) {
-    response, err := Sample([]string{"(.)(.)", "http://no.gd/boobs.gif"})
-    if err != nil {
-      return
-    }
+	"/^b(oo|ew)bs$/": func(con *irc.Connection, e irc.Event, replyName string) {
+		response, err := Sample([]string{"(.)(.)", "http://no.gd/boobs.gif"})
+		if err != nil {
+			return
+		}
 
-    con.Privmsg(replyName, response)
-  },
+		con.Privmsg(replyName, response)
+	},
 
 	"version": func(con *irc.Connection, e irc.Event, replyName string) {
 		reply := "My current version is"
@@ -207,23 +207,23 @@ var Plugins = map[string]func(con *irc.Connection, e irc.Event, replyName string
 		con.Privmsg(replyName, title)
 	},
 
-  // TODO: last
-  // TODO: roll
-  // TODO: ACTION pokes .+
-  // TODO: 37status
-  // TODO: hubstatus
-  // TODO: nextmeet
-  // TODO: ACTION staabs
-  // TODO: artme
-  // TODO: tasche http
-  // TODO: tasche artme
-  // TODO: seen
-  // TODO: ram
-  // TODO: uptime
-  // TODO: last poop
-  // TODO: twitter status
-  // TODO: twitter user
-  // TODO: commit me
+	// TODO: last
+	// TODO: roll
+	// TODO: ACTION pokes .+
+	// TODO: 37status
+	// TODO: hubstatus
+	// TODO: nextmeet
+	// TODO: ACTION staabs
+	// TODO: artme
+	// TODO: tasche http
+	// TODO: tasche artme
+	// TODO: seen
+	// TODO: ram
+	// TODO: uptime
+	// TODO: last poop
+	// TODO: twitter status
+	// TODO: twitter user
+	// TODO: commit me
 
 }
 
