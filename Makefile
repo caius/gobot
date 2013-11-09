@@ -4,18 +4,18 @@ THIS_DIR:=$(shell cd $(dir $(THIS_MAKEFILE_PATH)); pwd)
 GIT_COMMIT = $(shell git rev-parse --short HEAD)
 GIT_STATUS = $(shell test -n "`git status --porcelain`" && echo "+CHANGES")
 
-COMPONENTS = gobot
+COMPONENTS = gobot nwrug
 
-BUILD_OPTIONS = -ldflags "-X main.GitCommit $(GIT_COMMIT)$(GIT_STATUS) -X main.BuiltBy $(shell whoami) -w"
+BUILD_OPTIONS = -ldflags "-X gobot.GitCommit $(GIT_COMMIT)$(GIT_STATUS) -X gobot.BuiltBy $(shell whoami) -w"
 
 #
 # Build Targets, for development
 #
 run: | install
-	bin/gobot
+	bin/nwrug
 
 install: | submodules
-	GOPATH=$(THIS_DIR) go install $(BUILD_OPTIONS) gobot
+	GOPATH=$(THIS_DIR) go install $(BUILD_OPTIONS) nwrug
 
 # Yes, I typo this often
 isntall: | install
