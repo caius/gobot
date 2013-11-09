@@ -1,5 +1,14 @@
 # Gobot
 
+IRC bot library built atop [go-ircevent][] with support for joining rooms on startup and handling messages within said rooms.
+
+For a battle tested implementation using this library, see [nwrugbot][]. For a basic pong-bot example, see [examples/pong.go][pong]
+
+[go-ircevent]: http://github.com/thoj/go-ircevent
+[nwrugbot]: http://github.com/caius/nwrugbot
+[pong]: http://github.com/gobot/tree/master/examples/pong.go
+    
+
 ## License
 
 The MIT License (MIT)
