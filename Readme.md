@@ -6,7 +6,7 @@ For a battle tested implementation using this library, see [nwrugbot][]. For a b
 
 [go-ircevent]: http://github.com/thoj/go-ircevent
 [nwrugbot]: http://github.com/caius/nwrugbot
-[pong]: http://github.com/gobot/tree/master/examples/pong.go
+[pong]: https://github.com/caius/gobot/blob/master/examples/pong.go
     
 
 ## License
