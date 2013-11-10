@@ -10,9 +10,6 @@ import (
 	"strings"
 )
 
-var GitCommit string
-var BuiltBy string
-
 type Privmsg struct {
 	Event      irc.Event
 	Message    string
