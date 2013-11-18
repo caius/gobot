@@ -10,24 +10,6 @@ import (
 	"strings"
 )
 
-type Privmsg struct {
-	Event      irc.Event
-	Message    string
-	Nick       string
-	Connection irc.Connection
-	RoomName   string
-}
-
-func (self *Privmsg) Msg(response string) {
-	self.Connection.Privmsg(self.RoomName, response)
-}
-
-func (self *Privmsg) Action(response string) {
-	// TODO: implement ACTION
-	fmt.Println("TODO: implement ACTION (dickhead)")
-	self.Msg(response)
-}
-
 type Gobot struct {
 	Name   string // Bot nick
 	Pass   string // Password for nickserv, if required (noop if empty)
