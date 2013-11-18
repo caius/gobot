@@ -22,3 +22,7 @@ func (self *Privmsg) Action(response string) {
 	fmt.Println("TODO: implement ACTION (dickhead)")
 	self.Msg(response)
 }
+
+func (self *Privmsg) Error(response error) {
+  self.Connection.Privmsgf(self.RoomName, "OMG ERROR!!!1111!!11o1oneoneone - %s", response)
+}
