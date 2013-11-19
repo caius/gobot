@@ -1,7 +1,7 @@
 package gobot
 
 import (
-  "fmt"
+	"fmt"
 	"github.com/thoj/go-ircevent"
 )
 
@@ -24,5 +24,5 @@ func (self *Privmsg) Action(response string) {
 }
 
 func (self *Privmsg) Error(response error) {
-  self.Connection.Privmsgf(self.RoomName, "OMG ERROR!!!1111!!11o1oneoneone - %s", response)
+	self.Connection.Privmsgf(self.RoomName, "OMG ERROR!!!1111!!11o1oneoneone - %s", response)
 }
