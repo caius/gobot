@@ -10,10 +10,12 @@ import (
 )
 
 type Bot struct {
-	Name   string // Bot nick
-	Pass   string // Password for nickserv, if required (noop if empty)
-	Room   string // TODO: make an array once PRIVMSG handler can work out source of event
-	Server string // "server.name:port"
+	Name string // Bot nick
+	Pass string // Password for nickserv, if required (noop if empty)
+	// TODO: make an array once PRIVMSG handler can work out source of event
+	Room   string
+	Server string // "irc.freenode.net"
+	Port   int    // 6667
 
 	Plugins map[*regexp.Regexp]func(p Privmsg)
 
@@ -26,12 +28,16 @@ func Gobot() Bot {
 	return gobot
 }
 
+func (bot *Bot) Address() string {
+	return fmt.Sprintf("%s:%d", bot.Server, bot.Port)
+}
+
 // Run the bot. Setup plugins before calling this, blocks execution until program end
 func (bot *Bot) Run() {
 	bot.Con = irc.IRC(bot.Name, bot.Name) // Use the bot's nick as real name too
-	err := bot.Con.Connect(bot.Server)
+	err := bot.Con.Connect(bot.Address())
 	if err != nil {
-		log.Fatal("Couldn't connect to %s: %s", bot.Server, err)
+		log.Fatal("Couldn't connect to %s: %s", bot.Address, err)
 	}
 
 	// Once we're successfully connected to the network
